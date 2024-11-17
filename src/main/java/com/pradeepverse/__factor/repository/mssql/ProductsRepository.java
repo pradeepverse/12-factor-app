@@ -1,4 +1,4 @@
-package com.pradeepverse.__factor.repository;
+package com.pradeepverse.__factor.repository.mssql;
 
 import com.pradeepverse.__factor.model.ProductDTO;
 import com.pradeepverse.__factor.model.ProductEntity;

@@ -4,8 +4,12 @@ spring:
   datasource:
     url: jdbc:sqlserver://localhost:1433;databaseName=12factorapp;encrypt=false
     username: db_user
-    password:
+    password: <your password here>
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  data:
+    mongodb:
+      uri: mongodb://db_user:<your password here>@localhost:27017/12factor
+      database: 12factor
   jpa:
     hibernate:
       ddl-auto: update

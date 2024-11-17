@@ -2,9 +2,11 @@ package com.pradeepverse.__factor.controller;
 
 import com.pradeepverse.__factor.model.ProductDTO;
 import com.pradeepverse.__factor.model.ProductEntity;
-import com.pradeepverse.__factor.repository.ProductsRepository;
+import com.pradeepverse.__factor.model.ProductMongoEntity;
+import com.pradeepverse.__factor.repository.mongo.ProductsMongoRepository;
+import com.pradeepverse.__factor.repository.mssql.ProductsRepository;
+import com.pradeepverse.__factor.util.CommonUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,14 +18,22 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductsController {
 
-    @Autowired
-    private ProductsRepository productsRepository;
+    private final ProductsRepository productsRepository;
+    private final ProductsMongoRepository productsMongoRepository;
+    private final CommonUtil commonUtil;
 
-    @GetMapping("/products/all/v1")
-    public ResponseEntity<List<ProductEntity>> getAllProducts() {
+    @GetMapping("/sql/products/all/v1")
+    public ResponseEntity<List<ProductDTO>> getAllProducts() {
         List<ProductEntity> all = this.productsRepository.findAll();
-        System.out.println(all);
-        return new ResponseEntity<>(all, HttpStatusCode.valueOf(200));
+        List<ProductDTO> mappedProducts = commonUtil.mapList(all, ProductDTO.class);
+        return new ResponseEntity<>(mappedProducts, HttpStatusCode.valueOf(200));
+    }
+
+    @GetMapping("/mongo/products/all/v1")
+    public ResponseEntity<List<ProductDTO>> getAllProductsFromMongo() {
+        List<ProductMongoEntity> all = this.productsMongoRepository.findAll();
+        List<ProductDTO> mappedProducts = commonUtil.mapList(all, ProductDTO.class);
+        return new ResponseEntity<>(mappedProducts, HttpStatusCode.valueOf(200));
     }
 
 }
