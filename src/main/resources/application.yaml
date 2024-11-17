@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: 12-factor
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=12factorapp;encrypt=false
+    username: db_user
+    password:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: 8080
