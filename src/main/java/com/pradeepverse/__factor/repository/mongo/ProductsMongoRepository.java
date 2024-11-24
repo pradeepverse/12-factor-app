@@ -11,4 +11,7 @@ public interface ProductsMongoRepository extends MongoRepository<ProductMongoEnt
 
     @Override
     List<ProductMongoEntity> findAll();
+
+    @Override
+    <S extends ProductMongoEntity> S save(S entity);
 }
